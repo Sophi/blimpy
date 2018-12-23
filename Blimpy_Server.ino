@@ -131,14 +131,13 @@ void loop () {
 
 // ****************************************************CONDITIONS************************************************
 //***************CCW CONDITIONS (3)**************************
-
-         // move forward, both motors CCW, up/down OFF      
+         // move forward, both motors rotate out, one CW, the other CCW, up/down OFF      
         if (val3Int > highBandLimit && val4Int < highBandLimit 
          && val4Int > lowBandLimit && upDownInt2 >= 2000 && upDownInt >= 2000){       
             digitalWrite(5, LOW);
             digitalWrite(4, HIGH);
-            digitalWrite(12, LOW);
-            digitalWrite(13, HIGH);
+            digitalWrite(12, HIGH);
+            digitalWrite(13, LOW);
             digitalWrite(14, LOW);
             digitalWrite(16, LOW);
             Serial.println("CCW");
@@ -149,12 +148,12 @@ void loop () {
                 analogWrite(2, motorValue); 
                 }
           }     
-          // move forward, both motors CCW, up ON down OFF 
+          // move forward, both motors rotate out, one CW, the other CCW, up/down OFF  
           if (val3Int > highBandLimit && val4Int < highBandLimit && val4Int > lowBandLimit && upDownInt2 < 2000 && upDownInt >= 2000){       
             digitalWrite(5, LOW);
             digitalWrite(4, HIGH);
-            digitalWrite(12, LOW);
-            digitalWrite(13, HIGH);
+            digitalWrite(12, HIGH);
+            digitalWrite(13, LOW);
             digitalWrite(14, HIGH);
             digitalWrite(16, LOW);
             Serial.println("CCW + up");
@@ -165,12 +164,12 @@ void loop () {
                 analogWrite(2, motorValue); 
                 }
           }            
-          // move forward, both motors CCW, up OFF down ON 
+          // move forward, both motors rotate out, one CW, the other CCW, up/down OFF 
           if (val3Int > highBandLimit && val4Int < highBandLimit && val4Int > lowBandLimit && upDownInt2 >= 2000 && upDownInt < 2000){       
             digitalWrite(5, LOW);
             digitalWrite(4, HIGH);
-            digitalWrite(12, LOW);
-            digitalWrite(13, HIGH);
+            digitalWrite(12, HIGH);
+            digitalWrite(13, LOW);
             digitalWrite(14, LOW);
             digitalWrite(16, HIGH);
             Serial.println("CCW + down");
@@ -183,12 +182,12 @@ void loop () {
           }  
 
 //***************CW CONDITIONS (3)**************************          
-          // move forward, both motors CW, up/down OFF
+           // move backward, both motors rotate in, one CW, the other CCW, up/down OFF
            else if (val3Int < lowBandLimit && val4Int < highBandLimit && val4Int > lowBandLimit && upDownInt2 >= 2000 && upDownInt >= 2000){     
               digitalWrite(5, HIGH);
               digitalWrite(4, LOW);
-              digitalWrite(13, LOW);
-              digitalWrite(12, HIGH);
+              digitalWrite(12, LOW);
+              digitalWrite(13, HIGH);
               digitalWrite(14, LOW);
               digitalWrite(16, LOW);
               Serial.println("CW");
@@ -198,39 +197,38 @@ void loop () {
                   analogWrite(2, (4095-motorValue));              
                   }
            }
-          // move forward, both motors CW, up ON down OFF
+         // move backward, both motors rotate in, one CW, the other CCW, up/down OFF
          else if (val3Int < lowBandLimit && val4Int < highBandLimit && val4Int > lowBandLimit && upDownInt2 < 2000 && upDownInt >= 2000){     // move backward, both motors CW
               digitalWrite(5, HIGH);
               digitalWrite(4, LOW);
-              digitalWrite(13, LOW);
-              digitalWrite(12, HIGH);
-              digitalWrite(14, LOW);
-              digitalWrite(16, HIGH);
-              Serial.println("CW");
+              digitalWrite(12, LOW);
+              digitalWrite(13, HIGH);
+              digitalWrite(14, HIGH);
+              digitalWrite(16, LOW);
+              Serial.println("CW + up");
              // if(val3Int > slowStopLimit && val3Int < lowBandLimit) {
                 for(motorValue = lowBandLimit; motorValue >= 10; motorValue -= 5){
                   analogWrite(0, (4095-motorValue)); 
                   analogWrite(2, (4095-motorValue));              
                   }
            }
-          // move forward, both motors CW, up OFF down ON
+         // move backward, both motors rotate in, one CW, the other CCW, up/down OFF
          else if (val3Int < lowBandLimit && val4Int < highBandLimit && val4Int > lowBandLimit && upDownInt2 >= 2000 && upDownInt < 2000){     // move backward, both motors CW
               digitalWrite(5, HIGH);
               digitalWrite(4, LOW);
-              digitalWrite(13, LOW);
-              digitalWrite(12, HIGH);
-              digitalWrite(14, HIGH);
-              digitalWrite(16, LOW);
-              Serial.println("CW");
+              digitalWrite(12, LOW);
+              digitalWrite(13, HIGH);
+              digitalWrite(14, LOW);
+              digitalWrite(16, HIGH);
+              Serial.println("CW + down");
              // if(val3Int > slowStopLimit && val3Int < lowBandLimit) {
                 for(motorValue = lowBandLimit; motorValue >= 10; motorValue -= 5){
                   analogWrite(0, (4095-motorValue)); 
                   analogWrite(2, (4095-motorValue));              
                   }
            }
-
 //***************RIGHT CONDITIONS (3)**************************           
-          // move right, one motor CW, up/down OFF 
+          // move right, one motor CW, up OFF down ON 
           else if (val4Int < lowBandLimit && val3Int < highBandLimit 
            && val3Int > lowBandLimit && upDownInt2 >= 2000 && upDownInt >= 2000){  // move right, val4 only
               digitalWrite(12, HIGH);
@@ -240,6 +238,30 @@ void loop () {
               digitalWrite(14, LOW);
               digitalWrite(16, LOW);
               Serial.println("right");
+              analogWrite(0, (4095-motorValue)); 
+              }
+              // move right, one motor CW, up ON down OFF 
+          else if (val4Int < lowBandLimit && val3Int < highBandLimit 
+           && val3Int > lowBandLimit && upDownInt2 < 2000 && upDownInt >= 2000){  
+              digitalWrite(12, HIGH);
+              digitalWrite(13, LOW);
+              digitalWrite(4, LOW);
+              digitalWrite(5, LOW);
+              digitalWrite(14, HIGH);
+              digitalWrite(16, LOW);
+              Serial.println("right + up");
+              analogWrite(0, (4095-motorValue)); 
+              }
+              // move right, one motor CW, up OFF down ON 
+          else if (val4Int < lowBandLimit && val3Int < highBandLimit 
+           && val3Int > lowBandLimit && upDownInt2 >= 2000 && upDownInt < 2000){  
+              digitalWrite(12, HIGH);
+              digitalWrite(13, LOW);
+              digitalWrite(4, LOW);
+              digitalWrite(5, LOW);
+              digitalWrite(14, LOW);
+              digitalWrite(16, HIGH);
+              Serial.println("right + down");
               analogWrite(0, (4095-motorValue)); 
               }
 //***************LEFT CONDITIONS (3)**************************               
@@ -253,6 +275,30 @@ void loop () {
               digitalWrite(14, LOW);
               digitalWrite(16, LOW);
               Serial.println("left");
+              analogWrite(0, (4095-motorValue)); 
+              }
+              // move left, one motor CCW, up ON down OFF    
+          else if (val4Int > highBandLimit && val3Int < highBandLimit 
+           && val3Int > lowBandLimit && upDownInt2 < 2000 && upDownInt >= 2000){  // move LEFT, val3 only
+              digitalWrite(12, LOW);
+              digitalWrite(13, LOW);
+              digitalWrite(4, HIGH);
+              digitalWrite(5, LOW);
+              digitalWrite(14, HIGH);
+              digitalWrite(16, LOW);
+              Serial.println("left + up");
+              analogWrite(0, (4095-motorValue)); 
+              }
+              // move left, one motor CCW, up OFF down ON    
+          else if (val4Int > highBandLimit && val3Int < highBandLimit 
+           && val3Int > lowBandLimit && upDownInt2 >= 2000 && upDownInt < 2000){  // move LEFT, val3 only
+              digitalWrite(12, LOW);
+              digitalWrite(13, LOW);
+              digitalWrite(4, HIGH);
+              digitalWrite(5, LOW);
+              digitalWrite(14, LOW);
+              digitalWrite(16, HIGH);
+              Serial.println("left + down");
               analogWrite(0, (4095-motorValue)); 
               }
 //***************DOWN CONDITIONS (1)**************************         
