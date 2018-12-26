@@ -46,7 +46,8 @@ String val4a;
 String val4b;
 String val4c;
 String val4d;
-
+String mac;
+//84:F3:EB:0F:28:E9
 void setup() {
   Serial.begin(115200);                   // only for debug
   WiFi.config(ip, gateway, subnet);       // forces fixed IP
@@ -58,7 +59,8 @@ void setup() {
   }  
   
   Serial.println("Connected to wifi");
- 
+  mac = WiFi.macAddress();
+  Serial.println(mac);
   server.begin(); 
   pinMode(0, OUTPUT);
   pinMode(2, OUTPUT);
@@ -68,8 +70,8 @@ void setup() {
   pinMode(13, OUTPUT);   
   pinMode(14, OUTPUT);   
   pinMode(16, OUTPUT);   
-  //digitalWrite(0,  HIGH); 
-  //digitalWrite(2, HIGH);
+  digitalWrite(0,  HIGH); 
+  digitalWrite(2, HIGH);
   digitalWrite(4,  LOW); 
   digitalWrite(5,  LOW); 
   digitalWrite(12, LOW); 
